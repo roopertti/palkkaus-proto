@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Palkkauksen arviointijärjestelmä</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style>
+		#formView {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" id="nav">
+		<button class="btn btn-warning" id="employeeLogInBtn">Kirjaudu työntekijänä</button>
+		<button class="btn btn-warning" id="employerLogInBtn">Kirjaudu työnantajana</button>
+	</div>
+	<div class="container" id="mainView">
+	<h1>Palkkauksen arviointijärjestelmä - työntekijä</h1>
+		<div class="row">
+			<h2>Luonnokset</h2>
+			<div class="row">
+				<div class="col-md-6">
+				<button class="btn btn-success" id="addForm"><span class="glyphicon glyphicon-plus"></span> Uusi lomake</button>
+					<ul class="list-group" id="draftList">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+		<h2>Lähetetyt lomakkeet</h2>
+		<button class="btn btn-info" id="refreshEmployee"><span class="glyphicon glyphicon-refresh"></span></button>
+		<table class="table">
+			<thead>
+				<th>Työntekijä</th>
+				<th>Tehtävänimike</th>
+				<th>Esimies</th>
+				<th>Luotu</th>
+				<th>Tila</th>
+				<th>Id</th>
+			</thead>
+			<tbody id="submittedForms">
+			</tbody>
+		</table>
+		</div>
+	</div>
+	<div class="container hidden" id="formView">
+		<div class="row">
+			<div>
+				<div class="col-md-6">
+						<div class="form-group">
+							<label for="text1" class="col-2 col-form-label">Työntekijä</label>
+							<input type="text" class="form-control" id="text1">
+						</div>
+						<div class="form-group">
+							<label for="text2" class="col-2 col-form-label">Tehtävänimike</label>
+							<input type="text" class="form-control" id="text2">
+						</div>
+						<div class="form-group">
+							<label for="text3" class="col-2 col-form-label">Esimies</label>
+							<input type="text" class="form-control" id="text3">
+						</div>
+						<div class="form-group">
+							<label for="text4" class="col-2 col-form-label">Keskeiset työtehtävät</label>
+							<input type="text" class="form-control" id="text4">
+						</div>
+						<div class="form-group">
+							<table class="table">
+								<thead>
+									<th>Työtehtävä (1-3)</th>
+									<th>1</th>
+									<th>2</th>
+									<th>3</th>
+									<th>Miten ilmenee työntekijän työssä?</th>
+								</thead>
+								<tbody>
+									<tr>
+										<td>monipuolisuus</td>
+										<td><input type="radio" name="radio1" value="1"></td>
+										<td><input type="radio" name="radio1" value="2"></td>
+										<td><input type="radio" name="radio1" value="3"></td>
+										<td><input type="text" id="radiotext1"></td>
+									</tr>
+									<tr>
+										<td>asiakkuuksien hallinta</td>
+										<td><input type="radio" name="radio2" value="1"></td>
+										<td><input type="radio" name="radio2" value="2"></td>
+										<td><input type="radio" name="radio2" value="3"></td>
+										<td><input type="text" id="radiotext2"></td>
+									</tr>
+									<tr>
+										<td>työmenetelmien ja työvälineiden tehokas hallinta</td>
+										<td><input type="radio" name="radio3" value="1"></td>
+										<td><input type="radio" name="radio3" value="2"></td>
+										<td><input type="radio" name="radio3" value="3"></td>
+										<td><input type="text" id="radiotext3"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="form-group">
+							<table class="table">
+								<thead>
+									<th>Ammattitaito (1-3)</th>
+									<th>1</th>
+									<th>2</th>
+									<th>3</th>
+									<th>Miten ilmenee työntekijän työssä?</th>
+								</thead>
+								<tbody>
+									<tr>
+										<td>koulutus</td>
+										<td><input type="radio" name="radio4" value="1"></td>
+										<td><input type="radio" name="radio4" value="2"></td>
+										<td><input type="radio" name="radio4" value="3"></td>
+										<td><input type="text" id="radiotext4"></td>
+									</tr>
+									<tr>
+										<td>kirjalliset ja suulliset kommunikaatiotaidot</td>
+										<td><input type="radio" name="radio5" value="1"></td>
+										<td><input type="radio" name="radio5" value="2"></td>
+										<td><input type="radio" name="radio5" value="3"></td>
+										<td><input type="text" id="radiotext5"></td>
+									</tr>
+									<tr>
+										<td>yhteistyö- ja kehittämiskyky</td>
+										<td><input type="radio" name="radio6" value="1"></td>
+										<td><input type="radio" name="radio6" value="2"></td>
+										<td><input type="radio" name="radio6" value="3"></td>
+										<td><input type="text" id="radiotext6"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="col-md-6">
+					<div class="form-group">
+							<table class="table">
+								<thead>
+									<th>Työsuoritus (1-3)</th>
+									<th>1</th>
+									<th>2</th>
+									<th>3</th>
+									<th>Miten ilmenee työntekijän työssä?</th>
+								</thead>
+								<tbody>
+									<tr>
+										<td>työn tuloksellisuus</td>
+										<td><input type="radio" name="radio7" value="1"></td>
+										<td><input type="radio" name="radio7" value="2"></td>
+										<td><input type="radio" name="radio7" value="3"></td>
+										<td><input type="text" id="radiotext7"></td>
+									</tr>
+									<tr>
+										<td>työn tehokkuus</td>
+										<td><input type="radio" name="radio8" value="1"></td>
+										<td><input type="radio" name="radio8" value="2"></td>
+										<td><input type="radio" name="radio8" value="3"></td>
+										<td><input type="text" id="radiotext8"></td>
+									</tr>
+									<tr>
+										<td>työyhteisötaidot</td>
+										<td><input type="radio" name="radio9" value="1"></td>
+										<td><input type="radio" name="radio9" value="2"></td>
+										<td><input type="radio" name="radio9" value="3"></td>
+										<td><input type="text" id="radiotext9"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="form-group">
+							<label for="text5">Kommentit</label><br>
+							
+							<textarea id="text5" cols="30" rows="3"></textarea>
+						</div>
+					</div>
+					<button class="btn btn-success" id="formSubmit">Lähetä</button>
+					<button class="btn btn-info" id="formSaveDraft">Tallenna luonnos</button>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="container hidden" id="employerView">
+		<h1>Palkkauksen arviointijärjestelmä - työnantaja</h1>
+		<h2>Vastaanotetut lomakkeet</h2>
+		<button class="btn btn-info" id="refreshEmployer"><span class="glyphicon glyphicon-refresh"></span></button>
+		<div class="row">
+			<table class="table">
+				<thead>
+					<th>Työntekijä</th>
+					<th>Tehtävänimike</th>
+					<th>Esimies</th>
+					<th>Luotu</th>
+					<th>Tila</th>
+					<th>Id</th>
+					<th>Toiminnot</th>
+				</thead>
+				<tbody id="submittedFromEmployee">
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="container hidden" id="employerFormView">
+		<h2>Lomakkeen tarkastelu</h2>
+		<table class="table">
+			<thead>
+				<th>Vaaditut kohdat</th>
+				<th>Työntekijän vastaukset</th>
+				<th>Monivalintojen kommentit</th>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Työntekijä</th>
+					<td id="etext1"></td>
+				</tr>
+				<tr>
+					<th>Tehtävänimike</th>
+					<td id="etext2"></td>
+				</tr>
+				<tr>
+					<th>Esimies</th>
+					<td id="etext3"></td>
+				</tr>
+				<tr>
+					<th>Työntekijä</th>
+					<td id="etext4"></td>
+				</tr>
+				<tr>
+					<th>Työtehtävä: monipuolisuus</th>
+					<td id="eradio1"></td>
+					<td id="eradiotext1"></td>
+				</tr>
+				<tr>
+					<th>Työtehtävä: asiakkuuksien hallinta</th>
+					<td id="eradio2"></td>
+					<td id="eradiotext2"></td>
+				</tr>
+				<tr>
+					<th>Työtehtävä: työmenetelmien ja työvälineiden tehokas hallinta</th>
+					<td id="eradio3"></td>
+					<td id="eradiotext3"></td>
+				</tr>
+				<tr>
+					<th>Ammattitaito: koulutus</th>
+					<td id="eradio4"></td>
+					<td id="eradiotext4"></td>
+				</tr>
+				<tr>
+					<th>Ammattitaito: kirjalliset ja suulliset kommunikaatiotaidot</th>
+					<td id="eradio5"></td>
+					<td id="eradiotext5"></td>
+				</tr>
+				<tr>
+					<th>Ammattitaito: yhteistyö- ja kehittämiskyky</th>
+					<td id="eradio6"></td>
+					<td id="eradiotext6"></td>
+				</tr>
+				<tr>
+					<th>Työsuoritus: työn tuloksellisuus</th>
+					<td id="eradio7"></td>
+					<td id="eradiotext7"></td>
+				</tr>
+				<tr>
+					<th>Työsuoritus: työn tehokkuus</th>
+					<td id="eradio8"></td>
+					<td id="eradiotext8"></td>
+				</tr>
+				<tr>
+					<th>Työsuoritus: työyhteisötaidot</th>
+					<td id="eradio9"></td>
+					<td id="eradiotext9"></td>
+				</tr>
+				<tr>
+					<th>Työntekijän kommentit</th>
+					<td id="etext5"></td>
+				</tr>
+			</tbody>
+		</table>
+		<button class="btn btn-success" id="acceptForm">Hyväksy</button>
+		<button class="btn btn-danger" id="denyForm">Hylkää</button>
+		<button class="btn btn-warning" id="backToEmployerForms">Peruuta</button>
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="scripts/viewRouter.js"></script>
+	<script src="scripts/draftControl.js"></script>
+	<script src="scripts/formView.js"></script>
+	<script src="scripts/formTable.js"></script>
+	<script src="scripts/employerFormView.js"></script>
+	<script src="scripts/employerForms.js"></script>
+</body>
+</html>
